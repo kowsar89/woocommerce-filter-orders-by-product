@@ -104,7 +104,7 @@ class FOA_Woo_Filter_Orders_by_Product{
 			$t_order_itemmeta = $wpdb->prefix . "woocommerce_order_itemmeta";
 
 			if ( isset( $_GET['foa_order_product_filter'] ) && !empty( $_GET['foa_order_product_filter'] ) ) {
-				$product = $_GET['foa_order_product_filter'];
+				$product = intval($_GET['foa_order_product_filter']);
 				$where .= " AND $product IN (SELECT $t_order_itemmeta.meta_value FROM $t_order_items LEFT JOIN $t_order_itemmeta on $t_order_itemmeta.order_item_id=$t_order_items.order_item_id WHERE $t_order_items.order_item_type='line_item' AND $t_order_itemmeta.meta_key='_product_id' AND $t_posts.ID=$t_order_items.order_id)";
 			}
 		}
