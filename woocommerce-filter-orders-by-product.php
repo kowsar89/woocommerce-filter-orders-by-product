@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Filter Orders by Product
  * Plugin URI: http://kowsarhossain.com/
  * Description: This plugin lets you filter the WooCommrce Orders by any specific product
- * Version: 2.0.5
+ * Version: 2.0.6
  * Author: Md. Kowsar Hossain
  * Author URI: http://kowsarhossain.com
  * Text Domain: woocommerce-filter-orders-by-product
@@ -46,12 +46,12 @@ class FOA_Woo_Filter_Orders_by_Product{
 		if ( 'shop_order' != $typenow ) {
 			return;
 		}
-
-	    $sql="SELECT ID,post_title FROM $wpdb->posts WHERE post_type = 'product' AND post_status = 'publish'";
+		$status = apply_filters( 'wfobp_product_status', 'publish' );
+		$sql    = "SELECT ID,post_title FROM $wpdb->posts WHERE post_type = 'product'";
+		$sql   .= ( $status == 'any' ) ? '' : " AND post_status = '$status'";
 		$all_posts = $wpdb->get_results($sql, ARRAY_A);
 
 		$values = array();
-
 		foreach ($all_posts as $all_post) {
 			$values[$all_post['post_title']] = $all_post['ID'];
 		}
