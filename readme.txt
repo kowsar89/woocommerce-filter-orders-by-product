@@ -13,7 +13,9 @@ This plugin lets you filter the WooCommerce orders by any specific product
 == Description ==
 Ever wanted to filter the order page results by any specific product? Now with this plugin, you can!
 
-After installing this plugin, a new filter dropdown will appear in WooCommerce Orders screen. This dropdown shows a list of all published products. Just select a product and click on "Filter" button. Results will display only the orders which contains that specific product.
+After installing this plugin a new filter dropdown will appear in WooCommerce Orders screen. This dropdown shows a list of all products. Just select a product and click on the "Filter" button. It'll show up the orders which contains only that specific product.
+
+**New: From version 3.0 now it's possible to filter by "Product Category" as well.**
 
 Currently this only works for published products. If you want it to work for all product statuses eg. draft, private etc you have to add the following code in your theme's functions.php file:
 
@@ -29,10 +31,14 @@ Currently this only works for published products. If you want it to work for all
 You will see a new filter appears in WooCommerce Orders page.
 
 == Screenshots ==
-1. From admin panel, Click on "Woocommerce>Orders" to visit the orders screen. There you'll see a new dropdown filter appears
-2. Click on that dropdown and you'll see a list of all products. Select a product and click on "Filter" button. Results will display only the orders which contains that specific product.
+1. From admin panel, Click on "WooCommerce>Orders" to visit the Orders screen. There you'll see a new dropdown filter.
+2. Click on that dropdown and you'll see a list of all products. Select a product and click on "Filter" button. It'll show up the orders which contains only that specific product.
 
 == Changelog ==
+
+= 3.0 =
+* New: Now it's possible to filter by Product Category
+* Code refactored
 
 = 2.0.7 =
 * Fix: Products with same name only appeared once before
