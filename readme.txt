@@ -24,6 +24,9 @@ Currently this only works for published products. If you want it to work for all
 		return 'any';
 	}
 
+
+This project is on [GitHub](https://github.com/kowsar89/woocommerce-filter-orders-by-product)
+
 == Installation ==
 1. Upload the entire 'woocommerce-filter-orders-by-product' folder to the '/wp-content/plugins/' directory.
 2. Activate the plugin through the 'Plugins' menu in WordPress.
