@@ -11,9 +11,9 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
 This plugin lets you filter the WooCommerce orders by any specific product
 
 == Description ==
-Ever wanted to filter the order page results by any specific product? Now with this plugin, you can!
+Ever wanted to filter the order page results by any specific product? Now with this plugin you can!
 
-After installing this plugin a new filter dropdown will appear in WooCommerce Orders screen. This dropdown shows a list of all products. Just select a product and click on the "Filter" button. It'll show up the orders which contains only that specific product.
+After installing this plugin a new filter dropdown will appear in WooCommerce Orders screen. This dropdown shows a list of all products. Just select a product and click on the "Filter" button. It'll show up the orders which contain only that specific product.
 
 **New: From version 3.0 now it's possible to filter by "Product Category" as well.**
 
