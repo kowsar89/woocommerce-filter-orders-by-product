@@ -1,0 +1,14 @@
+/.wordpress-org
+/.git
+/.github
+/node_modules
+/__build
+/__junk
+
+.distignore
+.gitignore
+gulpfile.js
+package.json
+package-lock.json
+readme.md
+todo.txt
