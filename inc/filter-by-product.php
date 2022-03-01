@@ -20,7 +20,7 @@ class Filter_By_Product extends Filter_By {
 		global $wpdb;
 
 		$status = apply_filters( 'wfobp_product_status', 'publish' );
-		$sql    = "SELECT ID,post_title FROM $wpdb->posts WHERE post_type = 'product'";
+		$sql    = "SELECT ID,post_title FROM $wpdb->posts WHERE post_type IN ('product', 'product_variation')";
 		$sql   .= ( $status == 'any' ) ? '' : " AND post_status = '$status'";
 		$all_posts = $wpdb->get_results( $sql, ARRAY_A );
 
