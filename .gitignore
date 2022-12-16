@@ -1,4 +1,8 @@
-todo.txt
-package-lock.json
-node_modules/
 __*/
+/node_modules
+/vendor
+.DS_Store
+/.vscode
+/.cache/*
+/.idea
+*.map
