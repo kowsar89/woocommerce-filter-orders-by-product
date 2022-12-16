@@ -1,4 +1,4 @@
-# Copyright (C) 2019 woocommerce-filter-orders-by-product
+# Copyright (C) 2022 woocommerce-filter-orders-by-product
 # This file is distributed under the same license as the woocommerce-filter-orders-by-product package.
 msgid ""
 msgstr ""
@@ -7,6 +7,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: KowsarHossain <contact@kowsarhossain.com>\n"
+"Project-Id-Version: undefined\n"
 "Report-Msgid-Bugs-To: contact@kowsarhossain.com\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
