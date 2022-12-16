@@ -2,8 +2,8 @@
 	"name": "woocommerce-filter-orders-by-product",
 	"authors": [
 		{
-			"name": "wpWax",
-			"email": "support@wpWax.com"
+			"name": "Kowsar Hossain",
+			"email": "contact@kowsarhossain.com"
 		}
 	],
 	"require-dev": {
@@ -18,7 +18,7 @@
 		}
 	},
 	"scripts": {
-		"report": "@php ./vendor/bin/phpcs --report=summary,source",
-		"format": "@php ./vendor/bin/phpcbf"
+		"phpcs":  "@php ./vendor/bin/phpcs",
+		"phpcbf": "@php ./vendor/bin/phpcbf"
 	}
 }

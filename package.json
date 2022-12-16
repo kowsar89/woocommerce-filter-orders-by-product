@@ -2,11 +2,14 @@
 	"name": "woocommerce-filter-orders-by-product",
 	"version": "1.0.0",
 	"main": "gulpfile.js",
-	"author": "kowsarhossain",
+	"author": "Kowsar Hossain",
+	"license": "GPL-3.0+",
+	"engines": {
+		"node": "16.13.2",
+		"npm": "8.1.2"
+	  },
 	"devDependencies": {
 		"gulp": "^4.0.0",
-		"gulp-clean": "^0.4.0",
-		"gulp-wp-pot": "^2.3.3",
-		"gulp-zip": "^4.2.0"
+		"gulp-wp-pot": "^2.3.3"
 	}
 }
