@@ -9,13 +9,14 @@
  * Text Domain: woocommerce-filter-orders-by-product
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
- *
  */
 
-if ( ! defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 define( 'WFOBP_VERSION', '3.2.1' );
-define( 'WFOBP_PATH'   , plugin_dir_path( __FILE__ ) );
+define( 'WFOBP_PATH', plugin_dir_path( __FILE__ ) );
 
 final class WFOBP {
 
@@ -24,12 +25,12 @@ final class WFOBP {
 		add_action( 'plugins_loaded', array( $this, 'includes' ) );
 	}
 
-    public function load_textdomain(){
-        load_plugin_textdomain( 'woocommerce-filter-orders-by-product', false, dirname( plugin_basename(__FILE__) ) . '/languages/' );
-    }
+	public function load_textdomain() {
+		load_plugin_textdomain( 'woocommerce-filter-orders-by-product', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+	}
 
-	public function includes(){
-		if ( !class_exists( 'WooCommerce' ) || !is_admin() ){
+	public function includes() {
+		if ( ! class_exists( 'WooCommerce' ) || ! is_admin() ) {
 			return;
 		}
 		require_once WFOBP_PATH . 'inc/init.php';

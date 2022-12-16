@@ -14,14 +14,16 @@ class Initialize {
 		$this->load_filters();
 	}
 
-	public function scripts_and_styles(){
+	public function scripts_and_styles() {
 		$screen = get_current_screen();
-		if ( $screen->id != 'edit-shop_order' ) return;
+		if ( $screen->id != 'edit-shop_order' ) {
+			return;
+		}
 
 		wp_add_inline_script( 'selectWoo', 'jQuery(document).ready(function($){$(".wfobpp-select2").selectWoo();});' );
 	}
 
-	public function load_filters(){
+	public function load_filters() {
 		require_once WFOBP_PATH . 'inc/filter-by.php';
 		require_once WFOBP_PATH . 'inc/filter-by-product.php';
 		require_once WFOBP_PATH . 'inc/filter-by-category.php';
