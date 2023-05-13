@@ -52,15 +52,17 @@ final class WFOBP {
 	}
 
 	public function autoload() {
-		spl_autoload_register(function($className){
-			$namespace = 'flyoutapps\\wfobpp\\';
-			$class = str_replace($namespace, '', $className);
-			$filePath = WFOBP_PATH . 'inc/' . str_replace('_', '-', strtolower($class)) . '.php';
+		spl_autoload_register(
+			function( $className ) {
+				$namespace = 'flyoutapps\\wfobpp\\';
+				$class = str_replace( $namespace, '', $className );
+				$filePath = WFOBP_PATH . 'inc/' . str_replace( '_', '-', strtolower( $class ) ) . '.php';
 
-			if (file_exists($filePath)) {
-				require_once $filePath;
+				if ( file_exists( $filePath ) ) {
+					require_once $filePath;
+				}
 			}
-		});
+		);
 	}
 }
 
