@@ -22,7 +22,7 @@ class Filter_By_Product extends Filter_By {
 		$status = apply_filters( 'wfobp_product_status', 'publish' );
 		$sql    = $wpdb->prepare( "SELECT ID,post_title FROM {$wpdb->posts} WHERE post_type = %s", 'product' );
 		if ( 'any' !== $status ) {
-			$sql .= $wpdb->prepare( " AND post_status = %s", $status );
+			$sql .= $wpdb->prepare( ' AND post_status = %s', $status );
 		}
 		$all_posts = $wpdb->get_results( $sql, ARRAY_A );
 

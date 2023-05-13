@@ -44,7 +44,7 @@ final class WFOBP {
 
 	public function scripts_and_styles() {
 		$screen = get_current_screen();
-		if ( $screen->id != 'edit-shop_order' ) {
+		if ( 'edit-shop_order' != $screen->id ) {
 			return;
 		}
 
@@ -53,13 +53,13 @@ final class WFOBP {
 
 	public function autoload() {
 		spl_autoload_register(
-			function( $className ) {
+			function( $class_name ) {
 				$namespace = 'flyoutapps\\wfobpp\\';
-				$class = str_replace( $namespace, '', $className );
-				$filePath = WFOBP_PATH . 'inc/' . str_replace( '_', '-', strtolower( $class ) ) . '.php';
+				$class = str_replace( $namespace, '', $class_name );
+				$file_path = WFOBP_PATH . 'inc/' . str_replace( '_', '-', strtolower( $class ) ) . '.php';
 
-				if ( file_exists( $filePath ) ) {
-					require_once $filePath;
+				if ( file_exists( $file_path ) ) {
+					require_once $file_path;
 				}
 			}
 		);

@@ -27,7 +27,7 @@ abstract class Filter_By {
 
 	public function dropdown() {
 		$screen = get_current_screen();
-		if ( $screen->id != 'edit-shop_order' ) {
+		if ( 'edit-shop_order' != $screen->id ) {
 			return;
 		}
 
@@ -35,13 +35,13 @@ abstract class Filter_By {
 		?>
 		<select class="wfobpp-select2" name="<?php echo esc_attr( $this->id ); ?>" id="<?php echo esc_attr( $this->id ); ?>">
 			<?php
-			$current_v = isset( $_GET[ $this->id ] ) ? $_GET[ $this->id ] : '';
+			$current_v = isset( $_GET[ $this->id ] ) ? sanitize_text_field( wp_unslash( $_GET[ $this->id ] ) ) : '';
 			foreach ( $fields as $key => $title ) {
 				printf(
 					'<option value="%s"%s>%s</option>',
-					$key,
+					esc_attr( $key ),
 					$key == $current_v ? ' selected="selected"' : '',
-					$title
+					esc_html( $title )
 				);
 			}
 			?>
@@ -64,10 +64,12 @@ abstract class Filter_By {
 		$query .= " on $t_order_itemmeta.order_item_id=$t_order_items.order_item_id";
 
 		// Resultant table after join query
+
 		/*
 		------------------------------------------------------------------
 		order_id | order_item_id* | order_item_type | meta_key | meta_value
-		-------------------------------------------------------------------*/
+		-------------------------------------------------------------------
+		*/
 
 		// Build where clause, where order_id = $t_posts.ID
 		$query .= " WHERE $t_order_items.order_item_type='line_item'";
@@ -75,11 +77,13 @@ abstract class Filter_By {
 		$query .= " AND $t_posts.ID=$t_order_items.order_id";
 
 		// Visulize result
+
 		/*
 		-------------------------------------------------------------------
 		order_id    | order_item_type | meta_key    | meta_value
 		$t_posts.ID | line_item       | _product_id | <result>
-		---------------------------------------------------------------------*/
+		---------------------------------------------------------------------
+		*/
 
 		return $query;
 	}
