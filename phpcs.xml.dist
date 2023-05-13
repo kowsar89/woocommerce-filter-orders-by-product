@@ -42,6 +42,7 @@
 		<exclude name="Squiz.Commenting.ClassComment.Missing" />
 		<exclude name="Generic.Commenting.DocComment.MissingShort" />
 		<exclude name="WordPress.Files.FileName.InvalidClassFileName" />
+		<exclude name="Squiz.Commenting.InlineComment.InvalidEndChar" />
 	</rule>
 
 </ruleset>

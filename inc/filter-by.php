@@ -49,7 +49,9 @@ abstract class Filter_By {
 		<?php
 	}
 
-	// Returns list of product id
+	/**
+	 * Returns list of product id
+	 */
 	protected function query_by_product() {
 		global $wpdb;
 		$t_posts = $wpdb->posts;

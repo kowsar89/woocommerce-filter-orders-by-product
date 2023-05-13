@@ -20,8 +20,10 @@ class Filter_By_Product extends Filter_By {
 		global $wpdb;
 
 		$status = apply_filters( 'wfobp_product_status', 'publish' );
-		$sql    = "SELECT ID,post_title FROM $wpdb->posts WHERE post_type = 'product'";
-		$sql   .= ( $status == 'any' ) ? '' : " AND post_status = '$status'";
+		$sql    = $wpdb->prepare( "SELECT ID,post_title FROM {$wpdb->posts} WHERE post_type = %s", 'product' );
+		if ( 'any' !== $status ) {
+			$sql .= $wpdb->prepare( " AND post_status = %s", $status );
+		}
 		$all_posts = $wpdb->get_results( $sql, ARRAY_A );
 
 		$fields    = array();
@@ -33,7 +35,6 @@ class Filter_By_Product extends Filter_By {
 		return $fields;
 	}
 
-	// Modify where clause in query
 	public function filter_where( $where ) {
 		if ( is_search() ) {
 			if ( isset( $_GET[ $this->id ] ) && ! empty( $_GET[ $this->id ] ) ) {
