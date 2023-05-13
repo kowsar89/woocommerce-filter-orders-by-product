@@ -29,5 +29,3 @@ class Initialize {
 		require_once WFOBP_PATH . 'inc/filter-by-category.php';
 	}
 }
-
-new Initialize();

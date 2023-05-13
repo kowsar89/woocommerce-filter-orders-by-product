@@ -60,5 +60,3 @@ class Filter_By_Category extends Filter_By {
 		return $query;
 	}
 }
-
-new Filter_By_Category();
