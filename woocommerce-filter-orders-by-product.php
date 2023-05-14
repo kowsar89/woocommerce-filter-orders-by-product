@@ -20,9 +20,18 @@ define( 'WFOBP_PATH', plugin_dir_path( __FILE__ ) );
 
 final class WFOBP {
 
-	public function __construct() {
+	private function __construct() {
 		add_action( 'init', array( $this, 'load_textdomain' ) );
 		add_action( 'plugins_loaded', array( $this, 'bootstrap' ) );
+	}
+
+	public static function instance() {
+		static $instance = null;
+		if ( null == $instance ) {
+			$instance = new static();
+		}
+
+		return $instance;
 	}
 
 	public function load_textdomain() {
@@ -36,25 +45,13 @@ final class WFOBP {
 
 		$this->autoload();
 
-		add_action( 'admin_enqueue_scripts', array( $this, 'scripts_and_styles' ), 15 );
-
-		new flyoutapps\wfobpp\Filter_By_Product();
-		new flyoutapps\wfobpp\Filter_By_Category();
-	}
-
-	public function scripts_and_styles() {
-		$screen = get_current_screen();
-		if ( 'edit-shop_order' != $screen->id ) {
-			return;
-		}
-
-		wp_add_inline_script( 'selectWoo', 'jQuery(document).ready(function($){$(".wfobpp-select2").selectWoo();});' );
+		flyoutapps\wfobp\Bootstrap::instance();
 	}
 
 	public function autoload() {
 		spl_autoload_register(
 			function( $class_name ) {
-				$namespace = 'flyoutapps\\wfobpp\\';
+				$namespace = 'flyoutapps\\wfobp\\';
 				$class = str_replace( $namespace, '', $class_name );
 				$file_path = WFOBP_PATH . 'inc/' . str_replace( '_', '-', strtolower( $class ) ) . '.php';
 
@@ -66,4 +63,4 @@ final class WFOBP {
 	}
 }
 
-new WFOBP();
+WFOBP::instance();

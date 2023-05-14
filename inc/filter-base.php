@@ -1,13 +1,12 @@
 <?php
-/**
- * @author  FlyoutApps
- * @since   1.0
- * @version 1.0
- */
 
-namespace flyoutapps\wfobpp;
+namespace flyoutapps\wfobp;
 
-abstract class Filter_By {
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+abstract class Filter_Base {
 
 	public $id;
 

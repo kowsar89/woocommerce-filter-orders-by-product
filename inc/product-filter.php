@@ -1,19 +1,27 @@
 <?php
-/**
- * @author  FlyoutApps
- * @since   1.0
- * @version 1.0
- */
 
-namespace flyoutapps\wfobpp;
+namespace flyoutapps\wfobp;
 
-class Filter_By_Product extends Filter_By {
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
-	public function __construct() {
+class Product_Filter extends Filter_Base {
+
+	private function __construct() {
 		$this->id = 'wfobpp_by_product';
 		parent::__construct();
 
 		add_filter( 'posts_where', array( $this, 'filter_where' ) );
+	}
+
+	public static function instance() {
+		static $instance = null;
+		if ( null == $instance ) {
+			$instance = new static();
+		}
+
+		return $instance;
 	}
 
 	public function dropdown_fields() {
