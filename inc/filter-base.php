@@ -29,10 +29,11 @@ abstract class Filter_Base {
 			$current_value = isset( $_GET[ $this->id ] ) ? sanitize_text_field( wp_unslash( $_GET[ $this->id ] ) ) : '';
 
 			foreach ( $fields as $key => $title ) {
+				error_log($key );
 				printf(
 					'<option value="%s"%s>%s</option>',
 					esc_attr( $key ),
-					$key === $current_value ? ' selected="selected"' : '',
+					$key == $current_value ? ' selected="selected"' : '',
 					esc_html( $title )
 				);
 			}
