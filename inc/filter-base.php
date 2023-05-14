@@ -18,7 +18,7 @@ abstract class Filter_Base {
 	abstract public function dropdown_fields();
 
 	public function filter_dropdown() {
-		if ( ! Helper::is_order_page() ) {
+		if ( ! Helper::is_wc_order_screen() ) {
 			return;
 		}
 
@@ -29,7 +29,6 @@ abstract class Filter_Base {
 			$current_value = isset( $_GET[ $this->id ] ) ? sanitize_text_field( wp_unslash( $_GET[ $this->id ] ) ) : '';
 
 			foreach ( $fields as $key => $title ) {
-				error_log($key );
 				printf(
 					'<option value="%s"%s>%s</option>',
 					esc_attr( $key ),

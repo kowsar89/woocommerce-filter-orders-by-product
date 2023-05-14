@@ -23,7 +23,7 @@ class Bootstrap {
 	}
 
 	public function scripts_and_styles() {
-		if ( ! Helper::is_order_page() ) {
+		if ( ! Helper::is_wc_order_screen() ) {
 			return;
 		}
 
