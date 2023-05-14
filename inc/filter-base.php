@@ -13,6 +13,7 @@ abstract class Filter_Base {
 	public function __construct( $id ) {
 		$this->id = $id;
 		add_action( 'restrict_manage_posts', array( $this, 'filter_dropdown' ), 50 );
+		// add_filter( 'posts_request', array( $this, 'debug_query' ) );
 	}
 
 	abstract public function dropdown_fields();
@@ -81,7 +82,6 @@ abstract class Filter_Base {
 	}
 
 	public function debug_query( $query ) {
-		// add_filter( 'posts_request', array( $this, 'debug_query' ) );
 		echo '<div style="margin-left:200px;max-width:960px;">';
 		var_dump( $query );
 		echo '</div>';
