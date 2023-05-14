@@ -11,7 +11,7 @@ class Product_Filter extends Filter_Base {
 	private function __construct() {
 		parent::__construct( 'wfobp_by_product' );
 
-		add_filter( 'posts_where', array( $this, 'filter_where' ) );
+		add_filter( 'posts_where', array( $this, 'query_where' ) );
 	}
 
 	public static function instance() {
@@ -39,15 +39,18 @@ class Product_Filter extends Filter_Base {
 		return $fields;
 	}
 
-	public function filter_where( $where ) {
-		if ( is_search() ) {
-			if ( isset( $_GET[ $this->id ] ) && ! empty( $_GET[ $this->id ] ) ) {
-				$product = intval( $_GET[ $this->id ] );
-
-				// Check if selected product is inside order query
-				$where .= " AND $product IN ({$this->query_by_product()})";
-			}
+	public function query_where( $where ) {
+		if ( !is_search() ) {
+			return $where;
 		}
+
+		if ( isset( $_GET[ $this->id ] ) && ! empty( $_GET[ $this->id ] ) ) {
+			$product = intval( $_GET[ $this->id ] );
+
+			// Check if selected product is inside order query
+			$where .= " AND $product IN ({$this->query_by_product()})";
+		}
+
 		return $where;
 	}
 }

@@ -11,7 +11,7 @@ class Category_Filter extends Filter_Base {
 	private function __construct() {
 		parent::__construct( 'wfobp_by_category' );
 
-		add_filter( 'posts_where', array( $this, 'filter_where' ) );
+		add_filter( 'posts_where', array( $this, 'query_where' ) );
 	}
 
 	public static function instance() {
@@ -42,7 +42,7 @@ class Category_Filter extends Filter_Base {
 		return $fields;
 	}
 
-	public function filter_where( $where ) {
+	public function query_where( $where ) {
 		if ( is_search() ) {
 			if ( isset( $_GET[ $this->id ] ) && ! empty( $_GET[ $this->id ] ) ) {
 				$cat = intval( $_GET[ $this->id ] );
