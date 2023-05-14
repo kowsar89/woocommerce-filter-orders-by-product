@@ -11,7 +11,7 @@ class Product_Filter extends Filter_Base {
 	private function __construct() {
 		parent::__construct( 'wfobp_by_product' );
 
-		add_filter( 'posts_where', array( $this, 'query_where' ) );
+		add_filter( 'posts_join', array( $this, 'query_join' ) );
 	}
 
 	public static function instance() {
@@ -39,18 +39,18 @@ class Product_Filter extends Filter_Base {
 		return $fields;
 	}
 
-	public function query_where( $where ) {
-		if ( !is_search() ) {
-			return $where;
+	public function query_join( $join ) {
+		global $wpdb;
+
+		if ( !is_search() || empty( $_GET[ $this->id ] ) ) {
+			return $join;
 		}
 
-		if ( isset( $_GET[ $this->id ] ) && ! empty( $_GET[ $this->id ] ) ) {
-			$product = intval( $_GET[ $this->id ] );
+		$product = intval( $_GET[ $this->id ] );
+		$t_order_product_lookup = $wpdb->prefix . 'wc_order_product_lookup';
 
-			// Check if selected product is inside order query
-			$where .= " AND $product IN ({$this->query_by_product()})";
-		}
+		$join .= " INNER JOIN $t_order_product_lookup ON $t_order_product_lookup.order_id = {$wpdb->posts}.ID AND $t_order_product_lookup.product_id = $product";
 
-		return $where;
+		return $join;
 	}
 }
