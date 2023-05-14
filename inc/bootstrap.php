@@ -23,8 +23,7 @@ class Bootstrap {
 	}
 
 	public function scripts_and_styles() {
-		$screen = get_current_screen();
-		if ( 'edit-shop_order' != $screen->id ) {
+		if ( ! Helper::is_order_page() ) {
 			return;
 		}
 

@@ -9,8 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Category_Filter extends Filter_Base {
 
 	private function __construct() {
-		$this->id = 'wfobpp_by_category';
-		parent::__construct();
+		parent::__construct( 'wfobp_by_category' );
 
 		add_filter( 'posts_where', array( $this, 'filter_where' ) );
 	}

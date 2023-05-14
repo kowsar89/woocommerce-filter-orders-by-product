@@ -10,23 +10,15 @@ abstract class Filter_Base {
 
 	public $id;
 
-	public function __construct() {
-		add_action( 'restrict_manage_posts', array( $this, 'dropdown' ), 50 );
-		// add_filter( 'posts_request', array( $this, 'debug_query' ) );
+	public function __construct( $id ) {
+		$this->id = $id;
+		add_action( 'restrict_manage_posts', array( $this, 'filter_dropdown' ), 50 );
 	}
 
 	abstract public function dropdown_fields();
 
-	public function debug_query( $query ) {
-		echo '<div style="margin-left:200px;max-width:960px;">';
-		var_dump( $query );
-		echo '</div>';
-		return $query;
-	}
-
-	public function dropdown() {
-		$screen = get_current_screen();
-		if ( 'edit-shop_order' != $screen->id ) {
+	public function filter_dropdown() {
+		if ( ! Helper::is_order_page() ) {
 			return;
 		}
 
@@ -34,12 +26,13 @@ abstract class Filter_Base {
 		?>
 		<select class="wfobpp-select2" name="<?php echo esc_attr( $this->id ); ?>" id="<?php echo esc_attr( $this->id ); ?>">
 			<?php
-			$current_v = isset( $_GET[ $this->id ] ) ? sanitize_text_field( wp_unslash( $_GET[ $this->id ] ) ) : '';
+			$current_value = isset( $_GET[ $this->id ] ) ? sanitize_text_field( wp_unslash( $_GET[ $this->id ] ) ) : '';
+
 			foreach ( $fields as $key => $title ) {
 				printf(
 					'<option value="%s"%s>%s</option>',
 					esc_attr( $key ),
-					$key == $current_v ? ' selected="selected"' : '',
+					$key === $current_value ? ' selected="selected"' : '',
 					esc_html( $title )
 				);
 			}
@@ -84,6 +77,14 @@ abstract class Filter_Base {
 		---------------------------------------------------------------------
 		*/
 
+		return $query;
+	}
+
+	public function debug_query( $query ) {
+		// add_filter( 'posts_request', array( $this, 'debug_query' ) );
+		echo '<div style="margin-left:200px;max-width:960px;">';
+		var_dump( $query );
+		echo '</div>';
 		return $query;
 	}
 }

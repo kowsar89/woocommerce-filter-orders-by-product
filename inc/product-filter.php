@@ -9,8 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Product_Filter extends Filter_Base {
 
 	private function __construct() {
-		$this->id = 'wfobpp_by_product';
-		parent::__construct();
+		parent::__construct( 'wfobp_by_product' );
 
 		add_filter( 'posts_where', array( $this, 'filter_where' ) );
 	}
@@ -27,17 +26,14 @@ class Product_Filter extends Filter_Base {
 	public function dropdown_fields() {
 		global $wpdb;
 
-		$status = apply_filters( 'wfobp_product_status', 'publish' );
-		$sql    = $wpdb->prepare( "SELECT ID,post_title FROM {$wpdb->posts} WHERE post_type = %s", 'product' );
-		if ( 'any' !== $status ) {
-			$sql .= $wpdb->prepare( ' AND post_status = %s', $status );
-		}
-		$all_posts = $wpdb->get_results( $sql, ARRAY_A );
+		$product_status = apply_filters( 'wfobp_product_status', 'publish' );
+		$all_products = $wpdb->get_results( $wpdb->prepare( "SELECT ID,post_title FROM {$wpdb->posts} WHERE post_type = 'product'  AND post_status = %s", $product_status ), ARRAY_A );
 
 		$fields    = array();
 		$fields[0] = esc_html__( 'All Products', 'woocommerce-filter-orders-by-product' );
-		foreach ( $all_posts as $all_post ) {
-			$fields[ $all_post['ID'] ] = $all_post['post_title'];
+
+		foreach ( $all_products as $product ) {
+			$fields[ $product['ID'] ] = $product['post_title'];
 		}
 
 		return $fields;
