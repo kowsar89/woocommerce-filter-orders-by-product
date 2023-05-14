@@ -12,6 +12,7 @@ class Product_Filter extends Filter_Base {
 		parent::__construct( 'wfobp_by_product' );
 
 		add_filter( 'posts_join', array( $this, 'query_join' ) );
+		add_filter( 'posts_where', array( $this, 'query_where' ) );
 	}
 
 	public static function instance() {
@@ -40,17 +41,27 @@ class Product_Filter extends Filter_Base {
 	}
 
 	public function query_join( $join ) {
+		if ( !is_search() || empty( $_GET[ $this->id ] ) ) {
+			return $join;
+		}
+
+		$join = Helper::join_table_order_product_lookup( $join );
+
+		return $join;
+	}
+
+	public function query_where( $where ) {
 		global $wpdb;
 
 		if ( !is_search() || empty( $_GET[ $this->id ] ) ) {
-			return $join;
+			return $where;
 		}
 
 		$product = intval( $_GET[ $this->id ] );
 		$t_order_product_lookup = $wpdb->prefix . 'wc_order_product_lookup';
 
-		$join .= " INNER JOIN $t_order_product_lookup ON $t_order_product_lookup.order_id = {$wpdb->posts}.ID AND $t_order_product_lookup.product_id = $product";
+		$where .= " AND $t_order_product_lookup.product_id = $product";
 
-		return $join;
+		return $where;
 	}
 }

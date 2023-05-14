@@ -11,6 +11,7 @@ class Category_Filter extends Filter_Base {
 	private function __construct() {
 		parent::__construct( 'wfobp_by_category' );
 
+		add_filter( 'posts_join', array( $this, 'query_join' ) );
 		add_filter( 'posts_where', array( $this, 'query_where' ) );
 	}
 
@@ -42,7 +43,33 @@ class Category_Filter extends Filter_Base {
 		return $fields;
 	}
 
+	public function query_join( $join ) {
+		if ( !is_search() || empty( $_GET[ $this->id ] ) ) {
+			return $join;
+		}
+
+		$join = Helper::join_table_order_product_lookup( $join );
+		$join = Helper::join_table_term_relationships( $join );
+		$join = Helper::join_table_term_taxonomy( $join );
+
+		return $join;
+	}
+
 	public function query_where( $where ) {
+		global $wpdb;
+
+		if ( !is_search() || empty( $_GET[ $this->id ] ) ) {
+			return $where;
+		}
+
+		$cat = intval( $_GET[ $this->id ] );
+		$t_term_taxonomy = $wpdb->term_taxonomy;
+
+		$where .= " AND $t_term_taxonomy.term_id = $cat AND $t_term_taxonomy.taxonomy = 'product_cat'";
+		return $where;
+	}
+
+	public function query_where2( $where ) {
 		if ( is_search() ) {
 			if ( isset( $_GET[ $this->id ] ) && ! empty( $_GET[ $this->id ] ) ) {
 				$cat = intval( $_GET[ $this->id ] );

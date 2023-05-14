@@ -13,8 +13,48 @@ class Helper {
 		return 'edit-shop_order' === $screen->id;
 	}
 
+	public static function join_table_order_product_lookup( $join ) {
+		global $wpdb;
+		$t_order_product_lookup = $wpdb->prefix . 'wc_order_product_lookup';
 
-	protected function query_by_product() {
+		if ( str_contains( $join, $t_order_product_lookup ) ) {
+			return $join;
+		}
+
+		$join .= " INNER JOIN $t_order_product_lookup ON $t_order_product_lookup.order_id = {$wpdb->posts}.ID";
+
+		return $join;
+	}
+
+	public static function join_table_term_relationships( $join ) {
+		global $wpdb;
+		$t_term_relationships = $wpdb->term_relationships;
+		$t_order_product_lookup = $wpdb->prefix . 'wc_order_product_lookup';
+
+		if ( str_contains( $join, $t_term_relationships ) ) {
+			return $join;
+		}
+
+		$join .= " INNER JOIN $t_term_relationships ON $t_term_relationships.object_id = $t_order_product_lookup.product_id";
+
+		return $join;
+	}
+
+	public static function join_table_term_taxonomy( $join ) {
+		global $wpdb;
+		$t_term_relationships = $wpdb->term_relationships;
+		$t_term_taxonomy = $wpdb->term_taxonomy;
+
+		if ( str_contains( $join, $t_term_taxonomy ) ) {
+			return $join;
+		}
+
+		$join .= " INNER JOIN $t_term_taxonomy ON $t_term_taxonomy.term_taxonomy_id = $t_term_relationships.term_taxonomy_id";
+
+		return $join;
+	}
+
+	public static function query_by_product() {
 		global $wpdb;
 		$t_posts = $wpdb->posts;
 		$t_order_items = $wpdb->prefix . 'woocommerce_order_items';
