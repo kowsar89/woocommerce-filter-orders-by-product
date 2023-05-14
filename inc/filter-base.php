@@ -44,6 +44,10 @@ abstract class Filter_Base {
 
 	/**
 	 * Returns list of product id
+	 *
+	 * Usugae: Inside 'posts_where' filter like this: $where .= " AND $product IN ({$this->query_by_product()})";
+	 *
+	 * @return string
 	 */
 	protected function query_by_product() {
 		global $wpdb;
