@@ -48,9 +48,7 @@ class Category_Filter extends Filter_Base {
 				$cat = intval( $_GET[ $this->id ] );
 
 				// Check if selected category is inside order query
-				$where .= " AND $cat IN (";
-				$where .= $this->query_by_category();
-				$where .= ')';
+				$where .= " AND $cat IN ({$this->query_by_category()})";
 			}
 		}
 		return $where;
@@ -60,9 +58,7 @@ class Category_Filter extends Filter_Base {
 		global $wpdb;
 		$t_term_relationships = $wpdb->term_relationships;
 
-		$query  = "SELECT $t_term_relationships.term_taxonomy_id FROM $t_term_relationships WHERE $t_term_relationships.object_id IN (";
-		$query .= $this->query_by_product();
-		$query .= ')';
+		$query = "SELECT $t_term_relationships.term_taxonomy_id FROM $t_term_relationships WHERE $t_term_relationships.object_id IN ({$this->query_by_product()})";
 
 		return $query;
 	}

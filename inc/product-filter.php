@@ -45,9 +45,7 @@ class Product_Filter extends Filter_Base {
 				$product = intval( $_GET[ $this->id ] );
 
 				// Check if selected product is inside order query
-				$where .= " AND $product IN (";
-				$where .= $this->query_by_product();
-				$where .= ')';
+				$where .= " AND $product IN ({$this->query_by_product()})";
 			}
 		}
 		return $where;
