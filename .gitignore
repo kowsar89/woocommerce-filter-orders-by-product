@@ -2,3 +2,4 @@ todo.txt
 package-lock.json
 node_modules/
 __*/
+vendor/
