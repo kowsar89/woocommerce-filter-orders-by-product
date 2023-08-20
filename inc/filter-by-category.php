@@ -13,7 +13,7 @@ class Filter_By_Category extends Filter_By {
 		$this->id = 'wfobpp_by_category';
 		parent::__construct();
 
-		add_filter( 'posts_where', array( $this, 'filter_where' ) );
+		add_filter( 'posts_where', array( $this, 'filter_where' ), 10, 2 );
 	}
 
 	public function dropdown_fields(){
@@ -30,8 +30,8 @@ class Filter_By_Category extends Filter_By {
 		return $fields;
 	}
 
-	public function filter_where( $where ) {
-		if( is_search() ) {
+	public function filter_where( $where, $query ) {
+		if( $query->is_search() ) {
 			if ( isset( $_GET[$this->id] ) && !empty( $_GET[$this->id] ) ) {
 				$cat = intval($_GET[$this->id]);
 

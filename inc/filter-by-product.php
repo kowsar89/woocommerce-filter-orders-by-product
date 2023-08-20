@@ -13,7 +13,7 @@ class Filter_By_Product extends Filter_By {
 		$this->id = 'wfobpp_by_product';
 		parent::__construct();
 
-		add_filter( 'posts_where', array( $this, 'filter_where' ) );
+		add_filter( 'posts_where', array( $this, 'filter_where' ), 10, 2 );
 	}
 
 	public function dropdown_fields(){
@@ -34,8 +34,8 @@ class Filter_By_Product extends Filter_By {
 	}
 
 	// Modify where clause in query
-	public function filter_where( $where ) {
-		if( is_search() ) {
+	public function filter_where( $where, $query ) {
+		if( $query->is_search() ) {
 			if ( isset( $_GET[$this->id] ) && !empty( $_GET[$this->id] ) ) {
 				$product = intval($_GET[$this->id]);
 
