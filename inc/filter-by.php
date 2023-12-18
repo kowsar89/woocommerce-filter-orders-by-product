@@ -50,7 +50,7 @@ abstract class Filter_By {
 	protected function query_by_product(){
 		global $wpdb;
 		$t_posts = $wpdb->posts;
-		$t_order_items = $wpdb->prefix . "woocommerce_order_items";  
+		$t_order_items = $wpdb->prefix . "woocommerce_order_items";
 		$t_order_itemmeta = $wpdb->prefix . "woocommerce_order_itemmeta";
 
 		// Build join query, select meta_value
@@ -65,7 +65,7 @@ abstract class Filter_By {
 
 		// Build where clause, where order_id = $t_posts.ID
 		$query .= " WHERE $t_order_items.order_item_type='line_item'";
-		$query .= " AND $t_order_itemmeta.meta_key='_product_id'";
+		$query .= " AND $t_order_itemmeta.meta_key IN ('_product_id', '_variation_id')";
 		$query .= " AND $t_posts.ID=$t_order_items.order_id";
 
 		// Visulize result
