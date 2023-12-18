@@ -47,7 +47,7 @@ abstract class Filter_By {
 	}
 
 	// Returns list of product id
-	protected function query_by_product(){
+	protected function query_by_product( $type = "category", $product_ids = array() ){
 		global $wpdb;
 		$t_posts = $wpdb->posts;
 		$t_order_items = $wpdb->prefix . "woocommerce_order_items";  
@@ -55,6 +55,9 @@ abstract class Filter_By {
 
 		// Build join query, select meta_value
 		$query  = "SELECT $t_order_itemmeta.meta_value FROM";
+		if ( $type == "product") {
+			$query  = "SELECT $t_posts.ID FROM";
+		}
 		$query .= " $t_order_items LEFT JOIN $t_order_itemmeta";
 		$query .= " on $t_order_itemmeta.order_item_id=$t_order_items.order_item_id";
 
@@ -67,6 +70,10 @@ abstract class Filter_By {
 		$query .= " WHERE $t_order_items.order_item_type='line_item'";
 		$query .= " AND $t_order_itemmeta.meta_key='_product_id'";
 		$query .= " AND $t_posts.ID=$t_order_items.order_id";
+		if ( !empty( $product_ids ) ) {
+			$query .= " AND $t_order_itemmeta.meta_value IN (" . implode( ", ", $product_ids ) . ")";
+		}
+		
 
 		// Visulize result
 		/*-------------------------------------------------------------------
