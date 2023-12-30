@@ -12,7 +12,11 @@ abstract class Filter_By {
 	public $id;
 
 	public function __construct() {
-		add_action( 'restrict_manage_posts', array( $this, 'dropdown' ), 50 );
+		if ( Helper::is_HPOS_active()) {
+			add_action( 'woocommerce_order_list_table_restrict_manage_orders', array( $this, 'dropdown' ), 50 );
+		} else {
+			add_action( 'restrict_manage_posts', array( $this, 'dropdown' ), 50 );
+		}
 		// add_filter( 'posts_request', array( $this, 'debug_query' ) );
 	}
 
@@ -25,7 +29,7 @@ abstract class Filter_By {
 
 	public function dropdown() {
 		$screen = get_current_screen();
-		if ( $screen->id != 'edit-shop_order' ) return;
+		if( !in_array( $screen->id, array( 'edit-shop_order', 'woocommerce_page_wc-orders' ) ) ) return;
 
 		$fields = $this->dropdown_fields();
 		?>
