@@ -25,7 +25,6 @@ class Helper {
 
 	public static function query_by_product_hpos(){
 		global $wpdb;
-		$t_posts = $wpdb->posts;
         $t_orders = $wpdb->prefix . "wc_orders";
 		$t_order_items = $wpdb->prefix . "woocommerce_order_items";  
 		$t_order_itemmeta = $wpdb->prefix . "woocommerce_order_itemmeta";
