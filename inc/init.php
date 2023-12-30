@@ -20,7 +20,6 @@ class Initialize {
 		if( !in_array( $screen->id, array( 'edit-shop_order', 'woocommerce_page_wc-orders' ) ) ) return;
 
 		wp_add_inline_script( 'selectWoo', 'jQuery(document).ready(function($){$(".wfobpp-select2").selectWoo();});' );
-		
 	}
 
 	public function load_filters(){

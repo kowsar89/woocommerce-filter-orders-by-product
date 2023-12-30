@@ -13,7 +13,11 @@ class Filter_By_Product extends Filter_By {
 		$this->id = 'wfobpp_by_product';
 		parent::__construct();
 
-		add_filter( 'posts_where', array( $this, 'filter_where' ), 10, 2 );
+		if ( Helper::is_HPOS_active()) {
+			
+		} else {
+			add_filter( 'posts_where', array( $this, 'filter_where' ), 10, 2 );
+		}
 	}
 
 	public function dropdown_fields(){
