@@ -14,16 +14,17 @@ abstract class Filter_By {
 	public function __construct() {
 		if ( Helper::is_HPOS_active()) {
 			add_action( 'woocommerce_order_list_table_restrict_manage_orders', array( $this, 'dropdown' ), 50 );
+			add_filter( 'woocommerce_orders_table_query_sql', array( $this, 'debug_query' ) );
 		} else {
 			add_action( 'restrict_manage_posts', array( $this, 'dropdown' ), 50 );
+			// add_filter( 'posts_request', array( $this, 'debug_query' ) );
 		}
-		// add_filter( 'posts_request', array( $this, 'debug_query' ) );
 	}
 
 	abstract public function dropdown_fields();
 
 	public function debug_query( $query ){
-		echo '<div style="margin-left:200px;max-width:960px;">';var_dump( $query );echo '</div>';
+		error_log( $query );
 		return $query;
 	}
 

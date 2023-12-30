@@ -14,7 +14,7 @@ class Filter_By_Product extends Filter_By {
 		parent::__construct();
 
 		if ( Helper::is_HPOS_active()) {
-			
+			// add_filter( 'posts_where', array( $this, 'filter_where' ), 10, 2 );
 		} else {
 			add_filter( 'posts_where', array( $this, 'filter_where' ), 10, 2 );
 		}
