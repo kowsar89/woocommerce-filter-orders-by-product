@@ -48,5 +48,3 @@ class Filter_By_Product extends Filter_By {
 		return $where;
 	}
 }
-
-new Filter_By_Product();

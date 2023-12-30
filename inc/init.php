@@ -20,12 +20,17 @@ class Initialize {
 		if( !in_array( $screen->id, array( 'edit-shop_order', 'woocommerce_page_wc-orders' ) ) ) return;
 
 		wp_add_inline_script( 'selectWoo', 'jQuery(document).ready(function($){$(".wfobpp-select2").selectWoo();});' );
+		
 	}
 
 	public function load_filters(){
+		require_once WFOBP_PATH . 'inc/helper.php';
 		require_once WFOBP_PATH . 'inc/filter-by.php';
 		require_once WFOBP_PATH . 'inc/filter-by-product.php';
 		require_once WFOBP_PATH . 'inc/filter-by-category.php';
+
+		new Filter_By_Product();
+		new Filter_By_Category();
 	}
 }
 
