@@ -38,8 +38,15 @@ class Filter_By_Product extends Filter_By {
 	}
 
 	public function filter_hpos_query( $pieces, $args ) {
-		// k_var_dump($pieces);
-		// k_var_dump($args);
+		if ( isset( $_GET[$this->id] ) && !empty( $_GET[$this->id] ) ) {
+			$product = intval($_GET[$this->id]);
+
+			// Check if selected product is inside order query
+			$pieces['where'] .= " AND $product IN (";
+			$pieces['where'] .= Helper::query_by_product_hpos();
+			$pieces['where'] .= ")";
+		}
+
 		return $pieces;
 	}
 

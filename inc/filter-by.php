@@ -55,7 +55,7 @@ abstract class Filter_By {
 	protected function query_by_product(){
 		global $wpdb;
 		$t_posts = $wpdb->posts;
-		$t_order_items = $wpdb->prefix . "woocommerce_order_items";  
+		$t_order_items = $wpdb->prefix . "woocommerce_order_items";
 		$t_order_itemmeta = $wpdb->prefix . "woocommerce_order_itemmeta";
 
 		// Build join query, select meta_value
