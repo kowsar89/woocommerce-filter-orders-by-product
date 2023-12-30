@@ -12,20 +12,25 @@ abstract class Filter_By {
 	public $id;
 
 	public function __construct() {
-		add_action( 'restrict_manage_posts', array( $this, 'dropdown' ), 50 );
-		// add_filter( 'posts_request', array( $this, 'debug_query' ) );
+		if ( Helper::is_HPOS_active()) {
+			add_action( 'woocommerce_order_list_table_restrict_manage_orders', array( $this, 'dropdown' ), 50 );
+			// add_filter( 'woocommerce_orders_table_query_sql', array( $this, 'debug_query' ) );
+		} else {
+			add_action( 'restrict_manage_posts', array( $this, 'dropdown' ), 50 );
+			// add_filter( 'posts_request', array( $this, 'debug_query' ) );
+		}
 	}
 
 	abstract public function dropdown_fields();
 
 	public function debug_query( $query ){
-		echo '<div style="margin-left:200px;max-width:960px;">';var_dump( $query );echo '</div>';
+		error_log( $query );
 		return $query;
 	}
 
 	public function dropdown() {
 		$screen = get_current_screen();
-		if ( $screen->id != 'edit-shop_order' ) return;
+		if( !in_array( $screen->id, array( 'edit-shop_order', 'woocommerce_page_wc-orders' ) ) ) return;
 
 		$fields = $this->dropdown_fields();
 		?>
@@ -50,7 +55,7 @@ abstract class Filter_By {
 	protected function query_by_product(){
 		global $wpdb;
 		$t_posts = $wpdb->posts;
-		$t_order_items = $wpdb->prefix . "woocommerce_order_items";  
+		$t_order_items = $wpdb->prefix . "woocommerce_order_items";
 		$t_order_itemmeta = $wpdb->prefix . "woocommerce_order_itemmeta";
 
 		// Build join query, select meta_value
