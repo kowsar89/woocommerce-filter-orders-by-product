@@ -16,7 +16,8 @@ class Initialize {
 
 	public function scripts_and_styles(){
 		$screen = get_current_screen();
-		if ( $screen->id != 'edit-shop_order' ) return;
+
+		if( !in_array( $screen->id, array( 'edit-shop_order', 'woocommerce_page_wc-orders' ) ) ) return;
 
 		wp_add_inline_script( 'selectWoo', 'jQuery(document).ready(function($){$(".wfobpp-select2").selectWoo();});' );
 	}
