@@ -39,6 +39,9 @@ You will see a new filter appears in WooCommerce Orders page.
 
 == Changelog ==
 
+= 4.0 - Dec 31, 2023 =
+* Tweak: Added WooCommerce HPOS support
+
 = 3.3 - Aug 20, 2023 =
 * Fix: Resolved PHP notice caused by incorrect use of the `is_search()` function
 
