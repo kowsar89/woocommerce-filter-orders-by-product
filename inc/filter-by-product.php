@@ -14,7 +14,7 @@ class Filter_By_Product extends Filter_By {
 		parent::__construct();
 
 		if ( Helper::is_HPOS_active()) {
-			// add_filter( 'posts_where', array( $this, 'filter_where' ), 10, 2 );
+			add_filter( 'woocommerce_orders_table_query_clauses', array( $this, 'filter_hpos_query' ), 10, 2 );
 		} else {
 			add_filter( 'posts_where', array( $this, 'filter_where' ), 10, 2 );
 		}
@@ -35,6 +35,12 @@ class Filter_By_Product extends Filter_By {
 		}
 
 		return $fields;
+	}
+
+	public function filter_hpos_query( $pieces, $args ) {
+		// k_var_dump($pieces);
+		// k_var_dump($args);
+		return $pieces;
 	}
 
 	// Modify where clause in query
