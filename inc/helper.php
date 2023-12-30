@@ -1,8 +1,8 @@
 <?php
 /**
  * @author  FlyoutApps
- * @since   1.0
- * @version 1.0
+ * @since   4.0
+ * @version 4.0
  */
 
 namespace flyoutapps\wfobpp;
